@@ -129,51 +129,51 @@ class WinxBot(Client):
                 exit()
         except Exception:
             pass
-        LOGGER(__name__).info(f"FloraBot started as {self.name}")
+        LOGGER(__name__).info(f"BillaMusic started as {self.name}")
 
     async def _set_default_commands(self):
         private_commands = [
-            BotCommand("start", "Iniciar o bot"),
-            BotCommand("help", "Obter o menu de ajuda"),
-            BotCommand("ping", "Verificar se o bot está ativo ou inativo"),
+            BotCommand("start", "Start the Billa Music"),
+            BotCommand("help", "Get the help menu"),
+            BotCommand("ping", "Check if the bot is active or inactive"),
         ]
-        group_commands = [BotCommand("play", "Começar a tocar a música solicitada")]
+        group_commands = [
+            BotCommand("play", "Start playing the requested music")
+        ]
         admin_commands = [
-            BotCommand("play", "Começar a tocar a música solicitada"),
-            BotCommand("skip", "Ir para a próxima música na fila"),
-            BotCommand("pause", "Pausar a música atual"),
-            BotCommand("resume", "Retomar a música pausada"),
-            BotCommand("end", "Limpar a fila e sair do chat de voz"),
-            BotCommand("shuffle", "Embaralhar aleatoriamente a playlist na fila"),
-            BotCommand("playmode", "Alterar o modo de reprodução padrão do seu chat"),
-            BotCommand("settings", "Abrir as configurações do bot para o seu chat"),
+            BotCommand("play", "Start playing the requested music"),
+            BotCommand("skip", "Go to the next music in the queue"),
+            BotCommand("pause", "Pause the current music"),
+            BotCommand("resume", "Resume the paused music"),
+            BotCommand("end", "Clear the queue and leave the voice chat"),
+            BotCommand("shuffle", "Randomly shuffle the playlist in the queue"),
+            BotCommand("playmode", "Change the default playback mode for your chat"),
+            BotCommand("settings", "Open the bot settings for your chat"),
         ]
         owner_commands = [
-            BotCommand("update", "Atualizar o bot"),
-            BotCommand("restart", "Reiniciar o bot"),
-            BotCommand("logs", "Obter os registros"),
-            BotCommand("export", "Exportar todos os dados do MongoDB"),
-            BotCommand("import", "Importar todos os dados no MongoDB"),
-            BotCommand("addsudo", "Adicionar um usuário como sudoer"),
-            BotCommand("delsudo", "Remover um usuário dos sudoers"),
-            BotCommand("sudolist", "Listar todos os usuários sudo"),
-            BotCommand("log", "Obter os registros do bot"),
-            BotCommand("getvar", "Obter uma variável de ambiente específica"),
-            BotCommand("delvar", "Excluir uma variável de ambiente específica"),
-            BotCommand("setvar", "Definir uma variável de ambiente específica"),
-            BotCommand("usage", "Obter informações sobre o uso do Dyno"),
-            BotCommand("maintenance", "Ativar ou desativar o modo de manutenção"),
-            BotCommand("logger", "Ativar ou desativar o registro de atividades"),
-            BotCommand("block", "Bloquear um usuário"),
-            BotCommand("unblock", "Desbloquear um usuário"),
-            BotCommand("blacklist", "Adicionar um chat à lista negra"),
-            BotCommand("whitelist", "Remover um chat da lista negra"),
-            BotCommand("blacklisted", "Listar todos os chats na lista negra"),
-            BotCommand(
-                "autoend", "Ativar ou desativar o término automático para transmissões"
-            ),
-            BotCommand("reboot", "Reiniciar o bot"),
-            BotCommand("restart", "Reiniciar o bot"),
+            BotCommand("update", "Update the bot"),
+            BotCommand("restart", "Restart the bot"),
+            BotCommand("logs", "Get the logs"),
+            BotCommand("export", "Export all MongoDB data"),
+            BotCommand("import", "Import all data into MongoDB"),
+            BotCommand("addsudo", "Add a user as a sudoer"),
+            BotCommand("delsudo", "Remove a user from sudoers"),
+            BotCommand("sudolist", "List all sudo users"),
+            BotCommand("log", "Get the bot logs"),
+            BotCommand("getvar", "Get a specific environment variable"),
+            BotCommand("delvar", "Delete a specific environment variable"),
+            BotCommand("setvar", "Set a specific environment variable"),
+            BotCommand("usage", "Get Dynamic usage info"),
+            BotCommand("maintenance", "Enable or disable maintenance mode"),
+            BotCommand("logger", "Enable or disable activity logging"),
+            BotCommand("block", "Block a user"),
+            BotCommand("unblock", "Unblock a user"),
+            BotCommand("blacklist", "Add a chat to the blacklist"),
+            BotCommand("whitelist", "Remove a chat from the blacklist"),
+            BotCommand("blacklisted", "List all blacklisted chats"),
+            BotCommand("autoend", "Enable or disable auto-end for streams"),
+            BotCommand("reboot", "Reboot the bot"),
+            BotCommand("restart", "Restart the bot"),
         ]
 
         await self.set_bot_commands(
@@ -278,6 +278,6 @@ class WinxBot(Client):
         LOGGER(__name__).info("Bot is shutting down")
         await self.send_message(
             config.LOG_GROUP_ID,
-            text=f"🛑 <u><b>{self.mention} Bot Desligado :</b></u>\n\n🆔 <b>ID</b>: <code>{self.id}</code>\n📛 <b>Nome</b>: {self.name}\n🔗 <b>Nome de usuário:</b> @{self.username}",
+            text=f"🛑 <u><b>{self.mention} Bot Shut Down :</b></u>\n\n🆔 <b>ID</b>: <code>{self.id}</code>\n📛 <b>Name</b>: {self.name}\n🔗 <b>Username:</b> @{self.username}",
         )
         await super().stop()
