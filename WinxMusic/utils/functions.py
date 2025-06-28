@@ -7,79 +7,77 @@ from pyrogram.enums import MessageEntityType
 from pyrogram.types import Message
 
 MARKDOWN = """
-Leia o texto abaixo com atenção para descobrir como funciona a formatação!
+Read the text below carefully to understand how formatting works!
 
-<u>Preenchimentos suportados:</u>
+<u>Supported placeholders:</u>
 
-{GROUPNAME} - Nome do grupo
-{NAME} - Nome do usuário
-{ID} - ID do usuário
-{FIRSTNAME} - Primeiro nome do usuário
-{SURNAME} - Se o usuário tem sobrenome, isso mostrará o sobrenome, caso contrário, nada
-{USERNAME} - Nome de usuário do usuário
+{GROUPNAME} - Group name
+{NAME} - User name
+{ID} - User ID
+{FIRSTNAME} - User's first name
+{SURNAME} - User's surname if available, otherwise nothing
+{USERNAME} - User's username
 
-{TIME} - Hora atual
-{DATE} - Data atual
-{WEEKDAY} - Dia da semana atual
+{TIME} - Current time
+{DATE} - Current date
+{WEEKDAY} - Current day of the week
 
-<b><u>NOTA:</u></b> Os preenchimentos só funcionam no módulo de boas-vindas.
+<b><u>NOTE:</u></b> Placeholders only work in the welcome module.
 
-<u>Formatação suportada:</u>
+<u>Supported formatting:</u>
 
-<code>**Negrito**</code>: Isso aparecerá como texto em <b>Negrito</b>.
-<code>~~riscado~~</code>: Isso aparecerá como texto <strike>riscado</strike>.
-<code>__itálico__</code>: Isso aparecerá como texto em <i>itálico</i>.
-<code>--sublinhado--</code>: Isso aparecerá como texto <u>sublinhado</u>.
-<code>`palavras de código`</code>: Isso aparecerá como texto <code>código</code>.
-<code>||spoiler||</code>: Isso aparecerá como texto <spoiler>Spoiler</spoiler>.
-<code>[hiperlink](google.com)</code>: Isso criará um <a href='https://www.google.com'>hiperlink</a>.
-<code>> olá</code>: Isso aparecerá como <blockquote>olá</blockquote>.
-<b>Nota:</b> Você pode usar tanto Markdown quanto tags HTML.
+<code>**Bold**</code>: This will appear as <b>Bold</b> text.
+<code>~~strikethrough~~</code>: This will appear as <strike>strikethrough</strike> text.
+<code>__italic__</code>: This will appear as <i>italic</i> text.
+<code>--underline--</code>: This will appear as <u>underline</u> text.
+<code>`code words`</code>: This will appear as <code>code</code> text.
+<code>||spoiler||</code>: This will appear as <spoiler>Spoiler</spoiler> text.
+<code>[hyperlink](google.com)</code>: This will create a <a href='https://www.google.com'>hyperlink</a>.
+<code>> hello</code>: This will appear as <blockquote>hello</blockquote>.
+<b>Note:</b> You can use both Markdown and HTML tags.
 
+<u>Button formatting:</u>
 
-<u>Formatação de botão:</u>
+- > <blockquote>text ~ [button text, button link]</blockquote>
 
-- > <blockquote>texto ~ [texto do botão, link do botão]</blockquote>
+<u>Example:</u>
 
-
-<u>Exemplo:</u>
-
-<b>Exemplo</b>  
-<blockquote><i>botão com markdown</i> <code>formatação</code> ~ [texto do botão, https://google.com]</blockquote>
+<b>Example</b>  
+<blockquote><i>button with markdown</i> <code>formatting</code> ~ [button text, https://google.com]</blockquote>
 """
 WELCOMEHELP = """
-/setwelcome - Responda esta mensagem contendo o formato correto para uma mensagem de boas-vindas, verifique o final desta mensagem.
+/setwelcome - Reply to this message with the correct format for a welcome message, check the end of this message.
 
-/delwelcome - Apaga a mensagem de boas-vindas.
-/getwelcome - Exibe a mensagem de boas-vindas.
+/delwelcome - Deletes the welcome message.
+/getwelcome - Displays the welcome message.
 
-<b>CONFIGURAR_BOAS_VINDAS -></b>
+<b>SET_WELCOME -></b>
 
-<b>Para definir uma foto ou GIF como mensagem de boas-vindas, adicione sua mensagem de boas-vindas como legenda da foto ou GIF. A legenda deve estar no formato abaixo.</b>
+<b>To set a photo or GIF as a welcome message, add your welcome message as the caption of the photo or GIF. The caption must follow the format below.</b>
 
-Para mensagem de boas-vindas em texto, basta enviar o texto. Em seguida, responda com o comando.
+For a text welcome message, simply send the text. Then reply with the command.
 
-O formato deve ser algo como o seguinte:
+The format should be something like this:
 
-{GROUPNAME} - Nome do grupo
-{NAME} - Primeiro nome + sobrenome do usuário
-{ID} - ID do usuário
-{FIRSTNAME} - Primeiro nome do usuário
-{SURNAME} - Se o usuário tem sobrenome, isso mostrará o sobrenome, caso contrário, nada
-{USERNAME} - Nome de usuário do usuário
+{GROUPNAME} - Group name
+{NAME} - User's first name + surname
+{ID} - User ID
+{FIRSTNAME} - User's first name
+{SURNAME} - User's surname if available, otherwise nothing
+{USERNAME} - User's username
 
-{TIME} - Hora atual
-{DATE} - Data atual
-{WEEKDAY} - Dia da semana atual
+{TIME} - Current time
+{DATE} - Current date
+{WEEKDAY} - Current day of the week
 
-~ #Esse separador (~) deve estar entre o texto e os botões, remova também este comentário.
+~ #This separator (~) must be between the text and buttons, remove this comment as well.
 
 button=[Duck, https://duckduckgo.com]
 button2=[Github, https://github.com]
 
-<b>NOTAS -></b>
+<b>NOTES -></b>
 
-Verifique /markdownhelp para saber mais sobre formatações e outras sintaxes.
+Check /markdownhelp for more information on formatting and other syntax.
 """
 
 
@@ -230,6 +228,7 @@ async def extract_user_and_reason(message, sender_chat=False):
             return await extract_userid(message, user), None
 
         # if reason is given
+        if len(args) > 2 --snip--
         if len(args) > 2:
             user, reason = text.split(None, 2)[1:]
             return await extract_userid(message, user), reason
@@ -244,7 +243,7 @@ async def extract_user(message):
     return (await extract_user_and_reason(message))[0]
 
 
-def get_file_id_from_message(
+def get_file_id_from Gettable(
         message,
         max_file_size=3145728,
         mime_types=["image/png", "image/jpeg"],
@@ -289,7 +288,7 @@ async def time_converter(message: Message, time_value: str) -> Message | datetim
     currunt_time = datetime.now()
     time_digit = time_value[:-1]
     if not time_digit.isdigit():
-        return await message.reply_text("Tempo especificado incorreto.")
+        return await message.reply_text("Incorrect time specified.")
     if check_unit == "m":
         temp_time = currunt_time + timedelta(minutes=int(time_digit))
     elif check_unit == "h":
@@ -297,5 +296,5 @@ async def time_converter(message: Message, time_value: str) -> Message | datetim
     elif check_unit == "d":
         temp_time = currunt_time + timedelta(days=int(time_digit))
     else:
-        return await message.reply_text("Tempo especificado incorreto.")
+        return await message.reply_text("Incorrect time specified.")
     return temp_time
