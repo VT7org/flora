@@ -36,7 +36,7 @@ EXTRA_PLUGINS = getenv("EXTRA_PLUGINS", False)
 
 EXTRA_PLUGINS_REPO = getenv(
     "EXTRA_PLUGINS_REPO",
-    "https://github.com/gabrielmaialva33/winx-extra-plugin",
+    "https://github.com/VT7org/floraplugins",
 )
 # Fill here the external plugins repo where plugins that you want to load
 
@@ -50,7 +50,7 @@ LOG_GROUP_ID = getenv("LOG_GROUP_ID", "").strip()
 
 # Your User ID.
 OWNER_ID = list(
-    map(int, getenv("OWNER_ID", "8024757695").split())
+    map(int, getenv("OWNER_ID", "5960968099").split())
 )  # Input type must be interger
 
 PRIVACY_LINK = getenv(
@@ -67,7 +67,7 @@ HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
 # For customized or modified Repository
 UPSTREAM_REPO = getenv(
     "UPSTREAM_REPO",
-    "https://github.com/gabrielmaialva33/flora-music-bot",
+    "https://github.com/VT7org/flora",
 )
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "main")
 
@@ -79,10 +79,10 @@ GIT_TOKEN = getenv(
 
 # Only  Links formats are  accepted for this Var value.
 SUPPORT_CHANNEL = getenv(
-    "SUPPORT_CHANNEL", "https://t.me/canaiswinx"
+    "SUPPORT_CHANNEL", "https://t.me/BillaSpace"
 )  # Example:- https://t.me/cinewinx
 SUPPORT_GROUP = getenv(
-    "SUPPORT_GROUP", "https://t.me/+QuH3Xab1-5xiMzZh"
+    "SUPPORT_GROUP", "https://BillaCore"
 )  # Example:- https://t.me/cinewinxcoments
 
 # Set it in True if you want to leave your assistant after a certain amount of time. [Set time via AUTO_LEAVE_ASSISTANT_TIME]
@@ -104,7 +104,7 @@ TELEGRAM_DOWNLOAD_EDIT_SLEEP = int(getenv("TELEGRAM_EDIT_SLEEP", "5"))
 
 # Your Github Repo.. Will be shown on /start Command
 GITHUB_REPO = getenv(
-    "GITHUB_REPO", "https://github.com/gabrielmaialva33/flora-music-bot"
+    "GITHUB_REPO", "https://github.com/bhootnath/billanath2"
 )
 
 # Spotify Client.. Get it from https://developer.spotify.com/dashboard
@@ -137,7 +137,7 @@ TG_VIDEO_FILESIZE_LIMIT = int(
 
 # If you want your bot to setup the commands automatically in the bot's menu set it to true.
 # Refer to https://i.postimg.cc/Bbg3LQTG/image.png
-SET_CMDS = getenv("SET_CMDS", "False")
+SET_CMDS = getenv("SET_CMDS", "True")
 
 # You'll need a Pyrogram String Session for these vars. Generate String from our session generator bot @YukkiStringBot
 # Get the environment variable with a default value of an empty string
@@ -157,7 +157,7 @@ STRING_SESSIONS = list(map(str.strip, raw_sessions.split(","))) if raw_sessions 
 BANNED_USERS = filters.user()
 YTDOWNLOADER = 1
 LOG = 2
-LOG_FILE_NAME = "WinxLogs.txt"
+LOG_FILE_NAME = "BillaxLogs.txt"
 TEMP_DB_FOLDER = "tempdb"
 PREFIXES = ["/", "!", "%", ",", ".", "@", "#"]
 
@@ -173,68 +173,67 @@ autoclean = []
 
 START_IMG_URL = getenv(
     "START_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/flora-music-bot/refs/heads/main/assets/start_img_2.png",
-    # This is the file id of the photo you can also put the url of photo
+    "https://graph.org/file/11d1cd0307716a75552ab-f992a8e28b0f54a1e2.jpg",
 )
 
 PING_IMG_URL = getenv(
     "PING_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/flora-music-bot/refs/heads/main/assets/ping_img.png",
+    "https://graph.org/file/5b8ec611f351181654684-e74e570c78774ecf15.jpg",
 )
 
 PLAYLIST_IMG_URL = getenv(
     "PLAYLIST_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/flora-music-bot/refs/heads/main/assets/playlist_img.png",
+    "https://graph.org/file/1bcbb26caa7155f52e000-ad152dbea5f1a0c7ef.jpg",
 )
 
 GLOBAL_IMG_URL = getenv(
     "GLOBAL_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/flora-music-bot/refs/heads/main/assets/global_stats_img.png",
+    "https://te.legra.ph/file/95fcd2ec79b527ae3fac4.jpg",
 )
 
 STATS_IMG_URL = getenv(
     "STATS_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/flora-music-bot/refs/heads/main/assets/stats_img.png",
+    "https://graph.org/file/efbb051b7aad4b2ad7d37-c8e4ddd2960c91be07.jpg",
 )
 
 TELEGRAM_AUDIO_URL = getenv(
     "TELEGRAM_AUDIO_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/flora-music-bot/refs/heads/main/assets/telegram_audio_img.png",
+    "https://graph.org/file/da48401d509a23b49f7a3-aaff4c6be26ea19fc8.jpg",
 )
 
 TELEGRAM_VIDEO_URL = getenv(
     "TELEGRAM_VIDEO_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/flora-music-bot/refs/heads/main/assets/telegram_video_img.png",
+    "https://graph.org/file/da48401d509a23b49f7a3-aaff4c6be26ea19fc8.jpg",
 )
 
 STREAM_IMG_URL = getenv(
     "STREAM_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/flora-music-bot/refs/heads/main/assets/stream_img.png",
+    "https://graph.org/file/94abb12471c456fb43459-2abe114d4f925a7010.jpg",
 )
 
 SOUNCLOUD_IMG_URL = getenv(
     "SOUNCLOUD_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/flora-music-bot/refs/heads/main/assets/soundcloud_img.png",
+    "https://te.legra.ph/file/1b78431fe8de0e497c188.jpg",
 )
 
 YOUTUBE_IMG_URL = getenv(
     "YOUTUBE_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/flora-music-bot/refs/heads/main/assets/youtube_img.png",
+    "https://graph.org/file/0be8d843695876376efd6-aedad17042109171a2.jpg",
 )
 
 SPOTIFY_ARTIST_IMG_URL = getenv(
     "SPOTIFY_ARTIST_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/flora-music-bot/refs/heads/main/assets/spotify_artist_img.png",
+    "https://te.legra.ph/file/c03f25028fa248401d519.jpg",
 )
 
 SPOTIFY_ALBUM_IMG_URL = getenv(
     "SPOTIFY_ALBUM_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/flora-music-bot/refs/heads/main/assets/spotify_album_img.png",
+    "https://te.legra.ph/file/9fe24bde84b1d31f685a9.jpg",
 )
 
 SPOTIFY_PLAYLIST_IMG_URL = getenv(
     "SPOTIFY_PLAYLIST_IMG_URL",
-    "https://raw.githubusercontent.com/gabrielmaialva33/flora-music-bot/refs/heads/main/assets/spotify_playlist_img.png",
+    "https://te.legra.ph/file/7345db59ab5d2c5cb142a.jpg",
 )
 
 
