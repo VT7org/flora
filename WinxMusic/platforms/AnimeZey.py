@@ -136,7 +136,7 @@ class AnimeZey:
                     [
                         [
                             InlineKeyboardButton(
-                                text="🚦 Cancelar Download",
+                                text="🚦 Cancel Download", 
                                 callback_data=f"stop_downloading_animezey_{download_id}",
                             ),
                         ]
@@ -151,19 +151,19 @@ class AnimeZey:
                     downloader["eta"] = eta
                     eta = get_readable_time(eta)
                     if not eta:
-                        eta = "0 seg"
+                        eta = "0 sec" 
                     total_size = convert_bytes(total)
                     completed_size = convert_bytes(current)
                     speed = convert_bytes(speed)
                     text = f"""
     **AnimeZey Downloader 📥**
 
-    💾 **Tamanho total do arquivo:** {total_size}
-    ✅ **Concluído:** {completed_size} 
-    📊 **Progresso:** {percentage[:5]}%
+    💾 **Total File Size:** {total_size}  # 
+    ✅ **Completed:** {completed_size}  # 
+    📊 **Progress:** {percentage[:5]}%
 
-    ⚡ **Velocidade:** {speed}/s
-    ⏳ **Tempo restante:** {eta}"""
+    ⚡ **Speed:** {speed}/s  
+    ⏳ **Time Remaining:** {eta}""" 
                     try:
                         await mystic.edit_text(text, reply_markup=upl)
                     except Exception as e:
@@ -189,13 +189,13 @@ class AnimeZey:
                             await progress(current_size, total_size)
 
                     await mystic.edit_text(
-                        "✅ Download concluído com sucesso...\n📂 Processando arquivo agora"
+                        "✅ Download completed successfully...\n📂 Processing file now"  
                     )
                     downloader.pop("eta", None)
                     downloader.pop(download_id, None)
                     return True
             except Exception as e:
-                await mystic.edit_text(f"Erro ao baixar: {str(e)}")
+                await mystic.edit_text(f"Error downloading: {str(e)}")  
                 return False
 
         if len(downloader) > 10:
@@ -204,9 +204,9 @@ class AnimeZey:
                 low = min(timers)
                 eta = get_readable_time(low)
             except Exception:
-                eta = "Desconhecido"
+                eta = "Unknown"  
             await mystic.edit_text(
-                f"Muitos downloads simultâneos! Tempo estimado de espera: {eta}."
+                f"Too many simultaneous downloads! Estimated wait time: {eta}."  
             )
             return False
 
@@ -287,7 +287,7 @@ class AnimeZey:
             duration = result.stdout.decode().strip()
 
             if not duration:
-                return "desconhecido"
+                return "unknown" 
 
             duration_seconds = float(duration)
             minutes = int(duration_seconds // 60)
@@ -295,8 +295,8 @@ class AnimeZey:
             duration_str = f"{minutes}:{seconds:02d}"
             return duration_str
         except Exception as e:
-            print(f"Erro ao obter duração: {e}")
-            return "Erro ao calcular duração"
+            print(f"Error getting duration: {e}") 
+            return "Error calculating duration" 
 
     async def get_filepath(self, file_name: str) -> str:
         sanitized_file_name: str = re.sub(r'[\/\?<>\\:\*\|"]', "_", file_name)
@@ -315,6 +315,6 @@ async def stop_downloading_animezey(_, callback_query: CallbackQuery):
         task.cancel()
         downloader.pop(download_id, None)
 
-    # todo remove file if exists?
 
-    await callback_query.edit_message_text("🚦 Download cancelado com sucesso.")
+
+    await callback_query.edit_message_text("🚦 Download cancelled successfully.")  
