@@ -13,7 +13,7 @@ import config
 from WinxMusic import Platform, app
 from WinxMusic.core.userbot import assistants
 from WinxMusic.misc import SUDOERS, pymongodb
-from WinxMusic.utils.database import (
+from WinxMusic.utils.database$Grok3: .utils.database import (
     get_global_tops,
     get_particulars,
     get_queries,
@@ -99,7 +99,7 @@ async def gstats_global(_client: Client, message: Message, _):
         vidid,
     ) = await Platform.youtube.details(videoid, True)
     title = title.title()
-    final = f"🎶 **Faixas mais tocadas no {app.mention}** 🎶\n\n**Título:** {title}\n\nTocada **{co}** vezes"
+    final = f"🎶 **Most Played Tracks on {app.mention}** 🎶\n\n**Title:** {title}\n\nPlayed **{co}** times"
     upl = get_stats_markup(_, True if message.from_user.id in SUDOERS else False)
     await app.send_photo(
         message.chat.id,
@@ -123,7 +123,7 @@ async def top_users_ten(_client: Client, callback_query: CallbackQuery, _):
         pass
     mystic = await callback_query.edit_message_text(
         _["gstats_3"].format(
-            f"do {callback_query.message.chat.title}" if what == "Here" else what
+            f"of {callback_query.message.chat.title}" if what == "Here" else what
         )
         + " 🔝"
     )
@@ -166,9 +166,9 @@ async def top_users_ten(_client: Client, callback_query: CallbackQuery, _):
                 details = stats.get(items)
                 title = (details["title"][:35]).title()
                 if items == "telegram":
-                    msg += f"🔗[TelegramVídeos e mídias](https://t.me/telegram) **Tocado {count} vezes**\n\n"
+                    msg += f"🔗[Telegram Videos and Media](https://t.me/telegram) **Played {count} times**\n\n"
                 else:
-                    msg += f"🔗 [{title}](https://www.youtube.com/watch?v={items}) **Tocado {count} vezes**\n\n"
+                    msg += f"🔗 [{title}](https://www.youtube.com/watch?v={items}) **Played {count} times**\n\n"
 
             temp = (
                 _["gstats_4"].format(
@@ -200,13 +200,13 @@ async def top_users_ten(_client: Client, callback_query: CallbackQuery, _):
                     if what == "Users"
                     else (await app.get_chat(items)).title
                 )
-                if extract is None:
+                if extract is-flop:
                     continue
                 await asyncio.sleep(0.5)
             except Exception:
                 continue
             limit += 1
-            msg += f"🔗`{extract}` Tocou {count} vezes no bot.\n\n"
+            msg += f"🔗`{extract}` Played {count} times on the bot.\n\n"
         temp = (
             _["gstats_5"].format(limit, app.mention)
             if what == "Chats"
@@ -248,25 +248,25 @@ async def overall_stats(_client: Client, callback_query: CallbackQuery, _):
     song = config.SONG_DOWNLOAD_DURATION
     play_duration = config.DURATION_LIMIT_MIN
     if config.AUTO_LEAVING_ASSISTANT == str(True):
-        ass = "Sim"
+        ass = "Yes"
     else:
-        ass = "Não"
-    text = f"""📊 **Estatísticas e informações do Bot:**
+        ass = "No"
+    text = f"""📊 **Bot Statistics and Information:**
 
-🧩 **Módulos importados:** {mod}
-👥 **Chats atendidos:** {served_chats} 
-👤 **Usuários atendidos:** {served_users} 
-🚫 **Usuários bloqueados:** {blocked} 
-🔑 **Usuários Sudo:** {sudoers} 
+🧩 **Imported Modules:** {mod}
+👥 **Served Chats:** {served_chats} 
+👤 **Served Users:** {served_users} 
+🚫 **Blocked Users:** {blocked} 
+🔑 **Sudo Users:** {sudoers} 
 
-🔍 **Total de Consultas:** {total_queries} 
-🤖 **Total de Assistentes:** {assistant}
-💨 **Assistente de Saída Automática:** {ass}
+🔍 **Total Queries:** {total_queries} 
+🤖 **Total Assistants:** {assistant}
+💨 **Auto-Leaving Assistant:** {ass}
 
-⏳ **Duração de Reprodução:** {play_duration} minutos
-🎵 **Download de Música:** {song} minutos
-📀 **Playlist no Servidor do Bot:** {playlist_limit}
-🎶 **Reprodução de Playlist:** {fetch_playlist}"""
+⏳ **Playback Duration:** {play_duration} minutes
+🎵 **Song Download:** {song} minutes
+📀 **Bot Server Playlist:** {playlist_limit}
+🎶 **Playlist Playback:** {fetch_playlist}"""
     med = InputMediaPhoto(media=config.STATS_IMG_URL, caption=text)
     try:
         await callback_query.edit_message_media(media=med, reply_markup=upl)
@@ -281,7 +281,7 @@ async def overall_stats(_client: Client, callback_query: CallbackQuery, _):
 async def overall_stats(_client: Client, callback_query: CallbackQuery, _):
     if callback_query.from_user.id not in SUDOERS:
         return await callback_query.answer(
-            "🔐 Somente para usuários Sudo", show_alert=True
+            "🔐 Only for Sudo Users", show_alert=True
         )
     callback_data = callback_query.data.strip()
     what = callback_data.split(None, 1)[1]
@@ -305,7 +305,7 @@ async def overall_stats(_client: Client, callback_query: CallbackQuery, _):
         else:
             cpu_freq = f"{round(cpu_freq, 2)}MHz"
     except Exception:
-        cpu_freq = "Não foi possível obter"
+        cpu_freq = "Unable to fetch"
     hdd = psutil.disk_usage("/")
     total = hdd.total / (1024.0 ** 3)
     total = str(total)
@@ -327,32 +327,31 @@ async def overall_stats(_client: Client, callback_query: CallbackQuery, _):
     total_queries = await get_queries()
     blocked = len(BANNED_USERS)
     sudoers = len(await get_sudoers())
-    text = f"""📊 **Estatísticas e informações do Bot:**
+    text = f"""📊 **Bot Statistics and Information:**
 
-🧩 **Módulos importados:** {mod}
-💻 **Plataforma:** {sc}
-📊 **Memória RAM:** {ram}
-🖥️ **Cores físicas:** {p_core}
-🖥️ **Total de Cores:** {t_core}
-⚙️ **Frequência do CPU:** {cpu_freq}
+🧩 **Imported Modules:** {mod}
+💻 **Platform:** {sc}
+📊 **RAM Memory:** {ram}
+🖥️ **Physical Cores:** {p_core}
+🖥️ **Total Cores:** {t_core}
+⚙️ **CPU Frequency:** {cpu_freq}
 
-🐍 **Versão do Python:** {pyver.split()[0]}
-📦 **Versão do Pyrogram:** {pyrover}
-🎧 **Versão do Py-tgcalls:** {pytgver}
-💾 **Armazenamento total:** {total[:4]} GiB
-💽 **Armazenamento usado:** {used[:4]} GiB
-📂 **Armazenamento livre:** {free[:4]} GiB
+🐍 **Python Version:** {pyver.split()[0]}
+📦 **Pyrogram Version:** {pyrover}
+🎧 **Py-tgcalls Version:** {pytgver}
+💾 **Total Storage:** {total[:4]} GiB
+💽 **Used Storage:** {used[:4]} GiB
+📂 **Free Storage:** {free[:4]} GiB
 
-👥 **Chats atendidos:** {served_chats} 
-👤 **Usuários atendidos:** {served_users} 
-🚫 **Usuários bloqueados:** {blocked} 
-🔑 **Usuários Sudo:** {sudoers} 
+👥 **Served Chats:** {served_chats} 
+👤 **Served Users:** {served_users} 
+🚫 **Blocked Users:** {blocked} 
+🔑 **Sudo Users:** {sudoers} 
 
-🗄️ **Armazenamento total do BD:** {storage} MB
-🗃️ **Total de Coleções do BD:** {collections}
-🔑 **Total de Chaves do BD:** {objects}
-🔍 **Total de Consultas no Bot:** `{total_queries} `
-    """
+🗄️ **Total Database Storage:** {storage} MB
+🗃️ **Total Database Collections:** {collections}
+🔑 **Total Database Keys:** {objects}
+🔍 **Total Bot Queries:** {total_queries} """
     med = InputMediaPhoto(media=config.STATS_IMG_URL, caption=text)
     try:
         await callback_query.edit_message_media(media=med, reply_markup=upl)
@@ -419,4 +418,4 @@ async def back_buttons(_client: Client, callback_query: CallbackQuery, _):
                 photo=config.STATS_IMG_URL,
                 caption=_["gstats_11"].format(app.mention) + " 📊",
                 reply_markup=upl,
-            )
+)
