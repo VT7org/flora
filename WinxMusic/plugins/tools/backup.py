@@ -62,9 +62,9 @@ async def export_database(client, message):
         return
     if MONGO_DB_URI is None:
         return await message.reply_text(
-            "**Due to some privacy Issue, You can't Import/Export when you are using Yukki Database\n\n Please Fill Your MONGO_DB_URI in vars to use this features**"
+            "**Due to some privacy Issue, You can't Import/Export when you are using Cache Database\n\n Please Fill Your MONGO_DB_URI in vars to use this features**"
         )
-    mystic = await message.reply_text("Exporting Your mongodatabase...")
+    mystic = await message.reply_text("Exporting Your Mongo DB database...")
     _mongo_async_ = AsyncIOMotorClient(MONGO_DB_URI)
     databases = await _mongo_async_.list_database_names()
 
@@ -91,7 +91,7 @@ async def export_database(client, message):
         except OperationFailure:
             mystic = await edit_or_reply(
                 mystic,
-                f"In Your Mongodb deleting database is not allowed So i can't delete the  {db_name} Database",
+                f"In Your Mongodb deleting database Entries is not allowed So i can't delete the  {db_name} Database",
             )
         try:
             os.remove(file_path)
@@ -99,7 +99,7 @@ async def export_database(client, message):
             pass
 
     db = _mongo_async_[DB_NAME]
-    mystic = await edit_or_reply(mystic, f"Please Wait...\nExporting data of Bot")
+    mystic = await edit_or_reply(mystic, f"Please Wait...\nExporting data of Your Bot")
 
     async def progress(current, total):
         try:
@@ -112,7 +112,7 @@ async def export_database(client, message):
         await app.send_document(
             message.chat.id,
             file_path,
-            caption=f"Mongo Backup of {app.mention}. You can import This in a new mongodb instance by replying /import",
+            caption=f"Mongo Backup of {app.mention}. You can Now import This in a new mongodb instance by replying /import",
             progress=progress,
         )
     except FloodWait as e:
@@ -127,7 +127,7 @@ async def import_database(client, message):
         return
     if MONGO_DB_URI is None:
         return await message.reply_text(
-            "**Due to some privacy Issue, You can't Import/Export when you are using Yukki Database\n\n Please Fill Your MONGO_DB_URI in vars to use this features**"
+            "**Due to some privacy Issue, You can't Import/Export when you are using Cache Database\n\n Please Fill Your MONGO_DB_URI in vars to use this features**"
         )
 
     if not message.reply_to_message or not message.reply_to_message.document:
