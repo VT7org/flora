@@ -70,7 +70,7 @@ async def start_comm(client, message: Message, _):
                 disable_web_page_preview=True,
             )
         if name[0:3] == "sta":
-            m = await message.reply_text("🔎 Buscando suas estatísticas pessoais!")
+            m = await message.reply_text("🔎 Fetching your personal statistics!")
             stats = await get_userss(message.from_user.id)
             tot = len(stats)
             if not stats:
@@ -105,9 +105,9 @@ async def start_comm(client, message: Message, _):
                     details = stats.get(vidid)
                     title = (details["title"][:35]).title()
                     if vidid == "telegram":
-                        msg += f"🔗[Arquivos e áudios do Telegram]({config.SUPPORT_GROUP}) ** tocados {count} vezes**\n\n"
+                        msg += f"🔗[Telegram files and audios]({config.SUPPORT_GROUP}) ** played {count} times**\n\n"
                     else:
-                        msg += f"🔗 [{title}](https://www.youtube.com/watch?v={vidid}) ** tocados {count} vezes**\n\n"
+                        msg += f"🔗 [{title}](https://www.youtube.com/watch?v={vidid}) ** played {count} times**\n\n"
                 msg = _["ustats_2"].format(tot, tota, limit) + msg
                 return videoid, msg
 
@@ -129,7 +129,7 @@ async def start_comm(client, message: Message, _):
                 sender_name = message.from_user.first_name
                 return await app.send_message(
                     config.LOG_GROUP_ID,
-                    f"👤 {message.from_user.mention} acabou de iniciar o bot para verificar a <code>lista de Sudo</code>\n\n🆔 **ID do usuário:** {sender_id}\n📛 **Nome do usuário:** {sender_name}",
+                    f"👤 {message.from_user.mention} just started the bot to check the <code>Sudo list</code>\n\n🆔 **User ID:** {sender_id}\n📛 **User Name:** {sender_name}",
                 )
             return
         if name[0:3] == "lyr":
@@ -140,13 +140,13 @@ async def start_comm(client, message: Message, _):
                 await Platform.telegram.send_split_text(message, lyrics)
                 return
             else:
-                await message.reply_text("Falha ao obter as letras da música.")
+                await message.reply_text("Failed to fetch song lyrics.")
                 return
         if name[0:3] == "del":
             await del_plist_msg(client=client, message=message, _=_)
             await asyncio.sleep(1)
         if name[0:3] == "inf":
-            m = await message.reply_text("🔎 Buscando informações!")
+            m = await message.reply_text("🔎 Fetching information!")
             query = (str(name)).replace("info_", "", 1)
             query = f"https://www.youtube.com/watch?v={query}"
             results = VideosSearch(query, limit=1)
@@ -160,23 +160,23 @@ async def start_comm(client, message: Message, _):
                 link = result["link"]
                 published = result["publishedTime"]
                 searched_text = f"""
-🔍__**Informações da Faixa de Vídeo**__
+🔍__**Video Track Information**__
 
-❇️**Título:** {title}
+❇️**Title:** {title}
 
-⏳**Duração:** {duration} Minutos
-👀**Visualizações:** `{views}`
-⏰**Publicado em:** {published}
-🎥**Nome do Canal:** {channel}
-📎**Link do Canal:** [Visite aqui]({channellink})
-🔗**Link do Vídeo:** [Clique aqui]({link})
+⏳**Duration:** {duration} Minutes
+👀**Views:** `{views}`
+⏰**Published on:** {published}
+🎥**Channel Name:** {channel}
+📎**Channel Link:** [Visit here]({channellink})
+🔗**Video Link:** [Click here]({link})
 """
 
             key = InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(text="🎥 Assistir", url=f"{link}"),
-                        InlineKeyboardButton(text="🔄 Fechar", callback_data="close"),
+                        InlineKeyboardButton(text="🎥 Watch", url=f"{link}"),
+                        InlineKeyboardButton(text="🔄 Close", callback_data="close"),
                     ],
                 ]
             )
@@ -194,7 +194,7 @@ async def start_comm(client, message: Message, _):
                 sender_name = message.from_user.first_name
                 return await app.send_message(
                     config.LOG_GROUP_ID,
-                    f"👤 {message.from_user.mention} acabou de iniciar o bot para verificar as <code> informações do vídeo </code>\n\n🆔 **ID do usuário:** {sender_id}\n📛 **Nome do usuário:** {sender_name}",
+                    f"👤 {message.from_user.mention} just started the bot to check <code>video information</code>\n\n🆔 **User ID:** {sender_id}\n📛 **User Name:** {sender_name}",
                 )
     else:
         try:
@@ -225,7 +225,7 @@ async def start_comm(client, message: Message, _):
             sender_name = message.from_user.first_name
             return await app.send_message(
                 config.LOG_GROUP_ID,
-                f"👤 {message.from_user.mention} iniciou o bot. \n\n🆔 **ID do usuário:** {sender_id}\n📛 **Nome do usuário:** {sender_name}",
+                f"👤 {message.from_user.mention} started the bot.\n\n🆔 **User ID:** {sender_id}\n📛 **User Name:** {sender_name}",
             )
 
 
@@ -248,7 +248,7 @@ async def welcome(_client: Client, message: Message):
     if config.PRIVATE_BOT_MODE == str(True):
         if not await is_served_private_chat(message.chat.id):
             await message.reply_text(
-                "**O modo privado deste bot foi ativado, apenas meu dono pode usá-lo. Se você quiser usar este bot no seu chat, peça ao meu dono para autorizar seu chat.**"
+                "**This bot's private mode is enabled, only my owner can use it. If you want to use this bot in your chat, ask my owner to authorize your chat.**"
             )
             return await app.leave_chat(message.chat.id)
     else:
@@ -289,5 +289,4 @@ async def welcome(_client: Client, message: Message):
                 )
             return
         except Exception:
-
             return
