@@ -74,7 +74,7 @@ async def ping_com(_client: Client, message: Message, _):
         if videoid == "telegram":
             IMAGE = (
                 config.TELEGRAM_AUDIO_URL
-                if type == "Áudio"
+                if type == "Audio"
                 else config.TELEGRAM_VIDEO_URL
             )
         elif videoid == "soundcloud":
@@ -84,16 +84,16 @@ async def ping_com(_client: Client, message: Message, _):
         else:
             IMAGE = get_image(videoid)
     send = (
-        "**⌛️ Duração:** Duração desconhecida\n\nClique no botão abaixo para ver a lista completa na fila"
+        "**⌛️ Duration:** Unknown duration\n\nClick the button below to view the complete queue list"
         if DUR == "Unknown"
-        else "\nClique no botão abaixo para ver a lista completa na fila."
+        else "\nClick the button below to view the complete queue list."
     )
     cap = f"""**{app.mention} Player**
 
-🎥**Tocando agora:** {title}
+🎥**Now Playing:** {title}
 
-🔗**Tipo de Transmissão:** {type}
-🙍‍♂️**Reproduzido por:** {user}
+🔗**Stream Type:** {type}
+🙍‍♂️**Played by:** {user}
 {send}"""
     upl = (
         queue_markup(_, DUR, "c" if cplay else "g", videoid)
@@ -176,12 +176,12 @@ async def queued_tracks(_client: Client, callback_query: CallbackQuery, _):
     for x in got:
         j += 1
         if j == 1:
-            msg += f'Tocando agora:\n\n🏷Título: {x["title"]}\nDuração: {x["dur"]}\nPor: {x["by"]}\n\n'
+            msg += f'Now Playing:\n\n🏷Title: {x["title"]}\nDuration: {x["dur"]}\nBy: {x["by"]}\n\n'
         elif j == 2:
-            msg += f'Na fila:\n\n🏷Título: {x["title"]}\nDuração: {x["dur"]}\nPor: {x["by"]}\n\n'
+            msg += f'In Queue:\n\n🏷Title: {x["title"]}\nDuration: {x["dur"]}\nBy: {x["by"]}\n\n'
         else:
-            msg += f'🏷Título: {x["title"]}\nDuração: {x["dur"]}\nPor: {x["by"]}\n\n'
-    if "Na fila" in msg:
+            msg += f'🏷Title: {x["title"]}\nDuration: {x["dur"]}\nBy: {x["by"]}\n\n'
+    if "In Queue" in msg:
         if len(msg) < 700:
             await asyncio.sleep(1)
             return await callback_query.edit_message_text(msg, reply_markup=buttons)
@@ -247,16 +247,16 @@ async def queue_back(_client: Client, callback_query: CallbackQuery, _):
         else:
             image = get_image(videoid)
     send = (
-        "**⌛️ Duração:** Duração desconhecida\n\nClique no botão abaixo para ver a lista completa na fila"
+        "**⌛️ Duration:** Unknown duration\n\nClick the button below to view the complete queue list"
         if DUR == "Unknown"
-        else "\nClique no botão abaixo para ver a lista completa na fila."
+        else "\nClick the button below to view the complete queue list."
     )
     cap = f"""**{app.mention} Player**
 
-🎥**Tocando agora:** {title}
+🎥**Now Playing:** {title}
 
-🔗**Tipo de Transmissão:** {type}
-🙍‍♂️**Reproduzido por:** {user}
+🔗**Stream Type:** {type}
+🙍‍♂️**Played by:** {user}
 {send}"""
     upl = (
         queue_markup(_, DUR, cplay, videoid)
