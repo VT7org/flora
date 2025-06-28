@@ -23,9 +23,9 @@ async def speedtest_function(client, message):
 
     async def update_status():
         stages = [
-            "⏳ Testando **download** ... ⬇️",
-            "⏳ Testando **upload** ... ⬆️",
-            "↻ Finalizando o teste... 📊"
+            "⏳ Performing**download** ... ⬇️",
+            "⏳ Initialising **upload** ... ⬆️",
+            "↻ Sharing the Speedtest Results... 📊"
         ]
 
         for stage in stages:
@@ -47,23 +47,23 @@ async def speedtest_function(client, message):
         update_task.cancel()
 
     if "error" in result:
-        await m.edit(f"⚠️ **Erro durante o teste de velocidade:**\n\n`{result['error']}`")
+        await m.edit(f"⚠️ **Error Occurred While Performing Speedtest:**\n\n`{result['error']}`")
         return
 
     latency = str(result['server']['latency']).replace('.', ',')
     ping = str(result['ping']).replace('.', ',')
 
-    output = f"""**Resultados do SpeedTest** 📊
+    output = f"""**SpeedTest Final Results** 📊
 
-<u>**Cliente:**</u>
+<u>**Clients:**</u>
 🌐 **ISP:** {result['client']['isp']}
-🏳️ **País:** {result['client']['country']}
+🏳️ **Country:** {result['client']['country']}
 
-<u>**Servidor:**</u>
-🌍 **Nome:** {result['server']['name']}
-🇦🇺 **País:** {result['server']['country']}, {result['server']['cc']}
-💼 **Patrocinador:** {result['server']['sponsor']}
-⚡ **Latência:** {latency} ms  
+<u>**Server Info:**</u>
+🌍 **Name:** {result['server']['name']}
+🇦🇺 **Country:** {result['server']['country']}, {result['server']['cc']}
+💼 **Provider/Sponsor:** {result['server']['sponsor']}
+⚡ **Latency:** {latency} ms  
 🏓 **Ping:** {ping} ms"""
 
     try:
@@ -74,4 +74,4 @@ async def speedtest_function(client, message):
         )
         await m.delete()
     except Exception as e:
-        await m.edit(f"⚠️ **Erro ao enviar resultados:**\n\n`{str(e)}`")
+        await m.edit(f"⚠️ **Error Occurred While Sharing Speedtest Results:**\n\n`{str(e)}`")
