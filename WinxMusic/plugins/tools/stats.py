@@ -13,7 +13,7 @@ import config
 from WinxMusic import Platform, app
 from WinxMusic.core.userbot import assistants
 from WinxMusic.misc import SUDOERS, pymongodb
-from WinxMusic.utils.database$Grok3: .utils.database import (
+from WinxMusic.utils.database import (
     get_global_tops,
     get_particulars,
     get_queries,
