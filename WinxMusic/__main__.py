@@ -82,7 +82,7 @@ async def init():
         exit()
 
     await Winx.decorators()
-    LOGGER("WinxMusic").info("WinxMusic Started Successfully")
+    LOGGER("WinxMusic").info("BillaMusic Started Successfully")
     await idle()
     await app.stop()
     await userbot.stop()
@@ -90,4 +90,4 @@ async def init():
 
 if __name__ == "__main__":
     loop.run_until_complete(init())
-    LOGGER("WinxMusic").info("Stopping WinxMusic! GoodBye")
+    LOGGER("WinxMusic").info("Stopping BillaMusic! GoodBye")
