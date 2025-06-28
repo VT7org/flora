@@ -24,12 +24,12 @@ async def on_bot_added(_, message: Message):
                     message.chat.username if message.chat.username else "ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀᴛ"
                 )
                 msg = (
-                    f"🎉 **Bot de música adicionado em um novo grupo #NovoGrupo**\n\n"
-                    f"📋 **Nome do Chat:** {message.chat.title}\n"
-                    f"🆔 **ID do Chat:** {message.chat.id}\n"
-                    f"🔗 **Nome de usuário do Chat:** @{username}\n"
-                    f"👥 **Número de Membros do Chat:** {count}\n"
-                    f"👤 **Adicionado por:** {message.from_user.mention}"
+                    f"🎉 **Music bot added to a new group #NewGroup**\n\n"
+                    f"📋 **Chat Name:** {message.chat.title}\n"
+                    f"🆔 **Chat ID:** {message.chat.id}\n"
+                    f"🔗 **Chat Username:** @{username}\n"
+                    f"👥 **Chat Member Count:** {count}\n"
+                    f"👤 **Added by:** {message.from_user.mention}"
                 )
                 await app.send_message(
                     LOG_GROUP_ID,
@@ -63,19 +63,19 @@ async def on_bot_kicked(_, message: Message):
             remove_by = (
                 message.from_user.mention
                 if message.from_user
-                else "Usuário Desconhecido"
+                else "Unknown User"
             )
             title = message.chat.title
             username = (
-                f"@{message.chat.username}" if message.chat.username else "Chat Privado"
+                f"@{message.chat.username}" if message.chat.username else "Private Chat"
             )
             chat_id = message.chat.id
             left = (
-                f"🤖 O bot foi removido do grupo {title} #GrupoRemovido\n"
-                f"📋 **Nome do Chat**: {title}\n"
-                f"🆔 **ID do Chat**: {chat_id}\n"
-                f"🔗 **Nome de Usuário do Chat**: {username}\n"
-                f"👤 **Removido Por**: {remove_by}"
+                f"🤖 The bot was removed from the group {title} #GroupRemoved\n"
+                f"📋 **Chat Name**: {title}\n"
+                f"🆔 **Chat ID**: {chat_id}\n"
+                f"🔗 **Chat Username**: {username}\n"
+                f"👤 **Removed By**: {remove_by}"
             )
 
             await app.send_message(
@@ -85,7 +85,7 @@ async def on_bot_kicked(_, message: Message):
                     [
                         [
                             InlineKeyboardButton(
-                                text=f"Removido por: {message.from_user.first_name}",
+                                text=f"Removed by: {message.from_user.first_name}",
                                 user_id=message.from_user.id,
                             )
                         ]
