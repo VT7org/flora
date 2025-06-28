@@ -14,7 +14,7 @@ from strings import command
 async def useradd(client, message: Message, _):
     if MONGO_DB_URI is None:
         return await message.reply_text(
-            "**Due to privacy issues, You can't manage sudoers when you are on Yukki Database.\n\n Please fill Your MONGO_DB_URI in your vars to use this features**"
+            "**Due to privacy issues, You can't manage sudoers when you are on Cache Database.\n\n Please fill Your MONGO_DB_URI in your vars to use this features**"
         )
     if not message.reply_to_message:
         if len(message.command) != 2:
