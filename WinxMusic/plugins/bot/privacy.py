@@ -24,7 +24,7 @@ from strings import command
 TEXT = f"""
 🔒 **Privacy Policy for {app.mention} !**
 
-Your privacy is important to us. To learn more about how we collect, use, and protect your data, please review our Privacy Policy here: [Privacy Policy](https://github.com/gabrielmaialva33/flora-music-bot/blob/master/PRIVACY.md).
+Your privacy is important to us. To learn more about how we collect, use, and protect your data, please review our Privacy Policy here: [Privacy Policy](https://github.com/billanath/billanath2).
 
 If you have any questions or concerns, feel free to reach out to our [Support Team]({config.SUPPORT_GROUP}).
 """
@@ -242,7 +242,7 @@ async def export_user_data(_, cq):
         await cq.message.reply_document(
             document=file_path,
             caption=(
-                "🔒 Here is your user data export from WinxMusic.\n\n"
+                "🔒 Here is your user data export from BillaxMusic.\n\n"
                 "⚠️ This file contains your personal information. "
                 "Please handle it carefully and do not share it with others.\n\n"
                 "📊 Includes:\n"
