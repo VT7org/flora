@@ -31,29 +31,29 @@ async def inline_query_handler(client, query):
             channel = result[x]["channel"]["name"]
             link = result[x]["link"]
             published = result[x]["publishedTime"]
-            description = f"{views} | {duration} Minutos | {channel}  | {published}"
+            description = f"{views} | {duration} Minutes | {channel} | {published}"
             buttons = InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton(
-                            text="🎥 Assistir no YouTube",
+                            text="🎥 Watch on YouTube",
                             url=link,
                         )
                     ],
                 ]
             )
             searched_text = f"""
-❇️**Título:** [{title}]({link})
+❇️**Song:** [{title}]({link})
 
-⏳**Duração:** {duration} Minutos
-👀**Visualizações:** `{views}`
-⏰**Publicado em:** {published}
-🎥**Nome do Canal:** {channel}
-📎**Link do Canal:** [Visite aqui]({channellink})
+⏳**Duration:** {duration} Minutes
+👀**Views:** `{views}`
+⏰**Published on:** {published}
+🎥**Channel Name:** {channel}
+📎**Channel Link:** [Visit here]({channellink})
 
-__Responda com /play nesta mensagem pesquisada para reproduzir no chat de voz.__
+__Reply with /play on this searched message to play in voice chat.__
 
-⚡️ **Busca inline por {app.mention}**"""
+⚡️ **Inline search by {app.mention}**"""
             answers.append(
                 InlineQueryResultPhoto(
                     photo_url=thumbnail,
