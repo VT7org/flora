@@ -29,7 +29,7 @@ DURATION_LIMIT_MIN = int(
     getenv("DURATION_LIMIT", "300")
 )  # Remember to give value in Minutes
 
-EXTRA_PLUGINS = getenv("EXTRA_PLUGINS", False)
+EXTRA_PLUGINS = getenv("EXTRA_PLUGINS", True)
 
 # Fill False if you Don't want to load extra plugins
 
