@@ -50,7 +50,7 @@ async def scan_movie_folder(_, message: Message):
         else (message.reply_to_message.text if message.reply_to_message else None)
     )
     if not query:
-        return await message.reply_text("🎬 𝗜𝗻𝗳𝗼𝗿𝗺𝗲 𝗼 𝗳𝗶𝗹𝗺𝗲 𝗾𝘂𝗲 𝗱𝗲𝘀𝗲𝗷𝗮 𝗯𝘂𝘀𝗰𝗮𝗿.")
+        return await message.reply_text("🎬  Enter the movie you want To Search.")
 
     result = await Platform.animezey.search_movie(query)
     if not result:
@@ -89,7 +89,7 @@ async def scan_anime_folder(_, message: Message):
         else (message.reply_to_message.text if message.reply_to_message else None)
     )
     if not query:
-        return await message.reply_text("🎬 𝗜𝗻𝗳𝗼𝗿𝗺𝗲 𝗼 𝗾𝘂𝗲 𝗱𝗲𝘀𝗲𝗷𝗮 𝗯𝘂𝘀𝗰𝗮𝗿.")
+        return await message.reply_text("🎬 Enter the Anime Name You Want To Search &, download.")
 
     result = await Platform.animezey.search_anime(query)
     if not result:
@@ -126,9 +126,9 @@ async def send_results_page(message: Message, user_id: int):
     end = start + RESULTS_PER_PAGE
     files_on_page = files[start:end]
 
-    text = f"🎥 <b>Filmes encontrados: {len(files)}</b> - Página {page_index + 1}/{total_pages}</b>\n\n"
+    text = f"🎥 <b>Films Found: {len(files)}</b> - Páge {page_index + 1}/{total_pages}</b>\n\n"
     for idx, file in enumerate(files_on_page, start=1):
-        name = file.get("name", "<b>Sem título</b>")
+        name = file.get("name", "<b>Untitled</b>")
         # type = file.get("mimeType", None)
         link = file.get("link", "#")
         text += f"<b>📽️ {idx} - <a href='{Platform.animezey.base_url + link}'>{name}</a></b>\n"
@@ -144,7 +144,7 @@ async def send_results_page(message: Message, user_id: int):
         InlineKeyboardButton("➡️", callback_data="next_page") if page_index < total_pages - 1 else None,
     ]
     button_pairs.append(list(filter(None, navigation_buttons)))
-    button_pairs.append([InlineKeyboardButton("❌ Cancelar", callback_data="alpha_cancel")])
+    button_pairs.append([InlineKeyboardButton("❌ Cancel", callback_data="alpha_cancel")])
 
     markup = InlineKeyboardMarkup(button_pairs)
 
