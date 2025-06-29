@@ -42,7 +42,7 @@ def get_helpers(lang: str):
 
 
 # Load English commands first and set English keys
-commands["pt"] = load_yaml_file(r"./strings/cmds/en.yml")
+commands["en"] = load_yaml_file(r"./strings/cmds/en.yml")
 english_keys = set(commands["pt"].keys())
 
 for filename in os.listdir(r"./strings/cmds/"):
@@ -67,7 +67,7 @@ for filename in os.listdir(r"./strings/helpers/"):
         )
 
 if "en" not in languages:
-    languages["pt"] = load_yaml_file(r"./strings/langs/hi.yml")
+    languages["hi"] = load_yaml_file(r"./strings/langs/hi.yml")
     languages_present["hi"] = languages["hi"]["name"]
 
 for filename in os.listdir(r"./strings/langs/"):
