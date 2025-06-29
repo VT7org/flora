@@ -43,7 +43,7 @@ def get_helpers(lang: str):
 
 # Load English commands first and set English keys
 commands["en"] = load_yaml_file(r"./strings/cmds/en.yml")
-english_keys = set(commands["pt"].keys())
+english_keys = set(commands["en"].keys())
 
 for filename in os.listdir(r"./strings/cmds/"):
     if filename.endswith(".yml") and filename != "en.yml":
