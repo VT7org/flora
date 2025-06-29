@@ -25,6 +25,7 @@ async def init():
         logger.warning(
             "No Spotify Vars defined. Your bot won't be able to play spotify queries."
         )
+
     try:
         users = await get_gbanned()
         for user_id in users:
@@ -34,19 +35,21 @@ async def init():
             BANNED_USERS.add(user_id)
     except Exception:
         pass
+
     await app.start()
+
+    # Load default plugins
     for mod in app.load_plugins_from("WinxMusic/plugins"):
         if mod and hasattr(mod, "__MODULE__") and mod.__MODULE__:
             if hasattr(mod, "__HELP__") and mod.__HELP__:
                 HELPABLE[mod.__MODULE__.lower()] = mod
 
+    # Load xtraplugins only if enabled in config
     if config.EXTRA_PLUGINS:
         if os.path.exists("xtraplugins"):
             result = await app.run_shell_command(["git", "-C", "xtraplugins", "pull"])
             if result["returncode"] != 0:
-                logger.error(
-                    f"Error pulling updates for extra plugins: {result['stderr']}"
-                )
+                logger.error(f"Error pulling updates for extra plugins: {result['stderr']}")
                 exit()
         else:
             result = await app.run_shell_command(
@@ -67,10 +70,12 @@ async def init():
                 if hasattr(mod, "__HELP__") and mod.__HELP__:
                     HELPABLE[mod.__MODULE__.lower()] = mod
 
-    LOGGER("WinxMusic.plugins").info("Successfully Imported All Modules ")
+    LOGGER("WinxMusic.plugins").info("Successfully Imported All Modules")
+
     await userbot.start()
     await Winx.start()
-    LOGGER("WinxMusic").info("Assistant Started Sucessfully")
+    LOGGER("WinxMusic").info("Assistant Started Successfully")
+
     try:
         await Winx.stream_call(
             "http://docs.evostream.com/sample_content/assets/sintel1m720p.mp4"
@@ -83,6 +88,7 @@ async def init():
 
     await Winx.decorators()
     LOGGER("WinxMusic").info("BillaMusic Started Successfully")
+
     await idle()
     await app.stop()
     await userbot.stop()
