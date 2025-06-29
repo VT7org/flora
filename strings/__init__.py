@@ -16,7 +16,6 @@ commands = {}
 helpers = {}
 languages_present = {}
 
-
 def load_yaml_file(file_path: str) -> dict:
     with open(file_path, "r", encoding="utf8") as file:
         return yaml.safe_load(file)
@@ -29,7 +28,6 @@ def get_command(lang: str = "en") -> Union[str, List[str]]:
 
 
 def get_string(lang: str):
-    # Check if language exists and fallback to pt
     if lang not in languages:
         lang = "en"
     return languages[lang]
@@ -41,42 +39,52 @@ def get_helpers(lang: str):
     return helpers[lang]
 
 
-# Load English commands first and set English keys
-commands["en"] = load_yaml_file(r"./strings/cmds/en.yml")
+# Load English commands (main)
+if not os.path.exists("./strings/cmds/en.yml"):
+    print("Missing main command file: strings/cmds/en.yml")
+    sys.exit(1)
+
+commands["en"] = load_yaml_file("./strings/cmds/en.yml")
 english_keys = set(commands["en"].keys())
 
-for filename in os.listdir(r"./strings/cmds/"):
+# Load other command files
+for filename in os.listdir("./strings/cmds/"):
     if filename.endswith(".yml") and filename != "en.yml":
         language_code = filename[:-4]
-        commands[language_code] = load_yaml_file(
-            os.path.join(r"./strings/cmds/", filename)
-        )
+        commands[language_code] = load_yaml_file(os.path.join("./strings/cmds/", filename))
 
+        # Check for missing keys
         missing_keys = english_keys - set(commands[language_code].keys())
         if missing_keys:
-            print(
-                f"Error: Missing keys in strings/cmds/{language_code}.yml: {', '.join(missing_keys)}"
-            )
+            print(f"Error: Missing keys in strings/cmds/{language_code}.yml: {', '.join(missing_keys)}")
             sys.exit(1)
 
-for filename in os.listdir(r"./strings/helpers/"):
+# Load helper strings
+for filename in os.listdir("./strings/helpers/"):
     if filename.endswith(".yml"):
         language_code = filename[:-4]
-        helpers[language_code] = load_yaml_file(
-            os.path.join(r"./strings/helpers/", filename)
-        )
+        helpers[language_code] = load_yaml_file(os.path.join("./strings/helpers/", filename))
 
-if "en" not in languages:
-    languages["hi"] = load_yaml_file(r"./strings/langs/hi.yml")
-    languages_present["hi"] = languages["hi"]["name"]
+# Load language files
+if not os.path.exists("./strings/langs/en.yml"):
+    print("Missing main language file: strings/langs/en.yml")
+    print("Attempting fallback to hi.yml...")
+    if not os.path.exists("./strings/langs/hi.yml"):
+        print("Missing fallback language file: strings/langs/hi.yml")
+        sys.exit(1)
+    else:
+        languages["hi"] = load_yaml_file("./strings/langs/hi.yml")
+        languages_present["hi"] = languages["hi"].get("name", "Hindi")
 
-for filename in os.listdir(r"./strings/langs/"):
-    if filename.endswith(".yml") and filename != "hi.yml":
+languages["en"] = load_yaml_file("./strings/langs/en.yml")
+languages_present["en"] = languages["en"].get("name", "English")
+
+for filename in os.listdir("./strings/langs/"):
+    if filename.endswith(".yml") and filename not in ("en.yml", "hi.yml"):
         language_name = filename[:-4]
-        languages[language_name] = load_yaml_file(
-            os.path.join(r"./strings/langs/", filename)
-        )
+        languages[language_name] = load_yaml_file(os.path.join("./strings/langs/", filename))
 
+        # Ensure all English keys exist in each language file
         for item in languages["en"]:
             if item not in languages[language_name]:
                 languages[language_name][item] = languages["en"][item]
@@ -85,14 +93,13 @@ for filename in os.listdir(r"./strings/langs/"):
             languages_present[language_name] = languages[language_name]["name"]
         except KeyError:
             print(
-                "There is an issue with the language file. Please report it to TheTeamvk at @TheTeamvk on Telegram"
+                f"There is an issue with strings/langs/{filename}. Missing 'name' key. "
+                "Please fix or report it to @BillCore"
             )
-            sys.exit()
+            sys.exit(1)
 
 if not commands:
-    print(
-        "There's a problem loading the command files. Please report it to TheTeamVivek at @TheTeamVivek on Telegram"
-    )
+    print("There's a problem loading the command files. Please report it to @TheTeamVivek.")
     sys.exit()
 
 
@@ -109,9 +116,7 @@ def command(
             _ = get_string("en")
 
         if not await is_maintenance():
-            if (
-                message.from_user and message.from_user.id not in SUDOERS
-            ) or not message.from_user:
+            if (message.from_user and message.from_user.id not in SUDOERS) or not message.from_user:
                 if message.chat.type == ChatType.PRIVATE:
                     await message.reply_text(_["maint_4"])
                     return False
@@ -122,17 +127,17 @@ def command(
         else:
             commands_list = commands
 
-        # Get localized and English commands
         localized_commands = []
         en_commands = []
+
         for cmd in commands_list:
-            localized_cmd = get_command(lang_code)[cmd]
+            localized_cmd = get_command(lang_code).get(cmd, "")
             if isinstance(localized_cmd, str):
                 localized_commands.append(localized_cmd)
             elif isinstance(localized_cmd, list):
                 localized_commands.extend(localized_cmd)
 
-            en_cmd = get_command("pt")[cmd]  # Using "pt" instead of "en"
+            en_cmd = get_command("en").get(cmd, "")
             if isinstance(en_cmd, str):
                 en_commands.append(en_cmd)
             elif isinstance(en_cmd, list):
@@ -149,7 +154,7 @@ def command(
             if with_prefix and flt.prefixes:
                 for prefix in flt.prefixes:
                     if text.startswith(prefix):
-                        without_prefix = text[len(prefix) :]
+                        without_prefix = text[len(prefix):]
                         if re.match(
                             rf"^(?:{cmd}(?:@?{username})?)(?:\s|$)",
                             without_prefix,
@@ -157,7 +162,6 @@ def command(
                         ):
                             return prefix + cmd
             else:
-                # Match without prefix
                 if re.match(
                     rf"^(?:{cmd}(?:@?{username})?)(?:\s|$)",
                     text,
@@ -168,20 +172,12 @@ def command(
 
         all_commands = []
 
-        # Add English commands with prefix only
         if lang_code == "en":
-            all_commands.extend((cmd, True) for cmd in en_commands)  # Only with prefix
+            all_commands.extend((cmd, True) for cmd in en_commands)
         else:
-            # For non-English languages, add commands both with and without prefix
-            all_commands.extend(
-                (cmd, True) for cmd in en_commands
-            )  # English commands with prefix
-            all_commands.extend(
-                (cmd, True) for cmd in localized_commands
-            )  # Non-English commands with prefix
-            all_commands.extend(
-                (cmd, False) for cmd in localized_commands
-            )  # Non-English commands without prefix
+            all_commands.extend((cmd, True) for cmd in en_commands)
+            all_commands.extend((cmd, True) for cmd in localized_commands)
+            all_commands.extend((cmd, False) for cmd in localized_commands)
 
         for cmd, with_prefix in all_commands:
             matched_cmd = match_command(cmd, text, with_prefix)
@@ -195,9 +191,7 @@ def command(
                 )
                 message.command = [matched_cmd] + [
                     re.sub(r"\\([\"'])", r"\1", m.group(2) or m.group(3) or "")
-                    for m in re.finditer(
-                        r'([^\s"\']+)|"([^"]*)"|\'([^\']*)\'', without_command
-                    )
+                    for m in re.finditer(r'([^\s"\']+)|"([^"]*)"|\'([^\']*)\'', without_command)
                 ]
                 return True
 
@@ -214,4 +208,4 @@ def command(
         commands=commands,
         prefixes=prefixes,
         case_sensitive=case_sensitive,
-    )
+        )
